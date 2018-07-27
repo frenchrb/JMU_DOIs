@@ -17,7 +17,7 @@ def main(input):
     #upload DataCite metadata containing DOI
     #sends all .xml in the specified directory
     print('Uploading metadata to DataCite...')
-    metadata_dir = 'DataCite_metadata/'
+    metadata_dir = 'DataCite_metadata_drafts/'
     for filename in os.listdir(metadata_dir):
         if filename.endswith('.xml'):
             print('Sending metadata to DataCite:',filename)
@@ -78,27 +78,27 @@ def main(input):
             #excel_date_number = sheet1.cell(row,pub_date_col_index).value
             #pub_year, month, day, hour, minute, second = xlrd.xldate_as_tuple(excel_date_number, book_in.datemode)
         
-            doi = '10.25885/etd/' + set_name + '/' + item_number
+            draft_doi = '10.5072/etd/' + set_name + '/' + item_number
         
             print('Sheet row #',row+1)
             print(sheet1.cell(row, 0).value) #title
             print('URL:',url)
             #print('Current DOI in sheet:',sheet1.cell(row, doi_col_index).value) #value in doi column
-            print('DOI:',doi)
+            print('DOI:',draft_doi)
             #print()
             
-            doi_param = 'doi='+doi
+            doi_param = 'doi='+draft_doi
             url_param = 'url='+url
             doi_uri = doi_param + '\n' + url_param
             #print (doi_uri)
     
-            response2 = requests.put(config['DataCite API']['endpoint_doi'] + '/' + doi, auth = (config['DataCite API']['username'], config['DataCite API']['password']), data = doi_uri, headers = {'Content-Type':'text/plain;charset=UTF-8'})
+            response2 = requests.put(config['DataCite API']['endpoint_doi'] + '/' + draft_doi, auth = (config['DataCite API']['username'], config['DataCite API']['password']), data = doi_uri, headers = {'Content-Type':'text/plain;charset=UTF-8'})
             #response2 = requests.put(config['DataCite API']['endpoint_doi'] + '/' + doi, auth = (config['DataCite API']['username'], config['DataCite API']['password']), data = doi_uri, headers = {'Content-Type':'text/plain;charset=UTF-8'})
             if response2.status_code == 201:
                 print(response2.text)
                 print()
                 #write DOI to sheet
-                book_out.get_sheet(0).write(row,doi_col_index,'https://doi.org/'+doi)
+                book_out.get_sheet(0).write(row,doi_col_index,'https://doi.org/'+draft_doi)
             else:
                 print(str(response2.status_code) + ' ' + response2.text)
                 print()

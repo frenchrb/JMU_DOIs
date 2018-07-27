@@ -5,7 +5,7 @@ import subprocess
 def main(input):
     saxon_path = 'C:\SaxonHE9-7-0-6J/'
     xsl_excel_named = 'coll_transforms/Excel2NamedXML.xsl'
-    xsl_coll_transform = 'coll_transforms/ExcelNamed2DataCite_dnp201019.xsl'
+    xsl_coll_transform = 'coll_transforms/ExcelNamed2DataCite_dnp201019_draftDOI.xsl'
 
     # Transform Excel XML into XML with named nodes
     subprocess.call(['java', '-jar', saxon_path+'saxon9he.jar', '-s:'+input, '-xsl:'+xsl_excel_named, '-o:excel_named_temp.xml'])
