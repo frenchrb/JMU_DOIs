@@ -1,0 +1,7 @@
+name: JMU_DOIs_testenv
+dependencies:
+  - python=3.5
+  - xlrd
+  - xlwt
+  - xlutils
+  - requests

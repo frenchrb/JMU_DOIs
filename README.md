@@ -1,6 +1,8 @@
 # JMU_DOIs
 Mint DOIs from Bepress metadata using DataCite
 
+---
+
 Requires a config file (local_settings.ini) in the same directory. Example of local_settings.ini:
 ```
 [DataCite API]
