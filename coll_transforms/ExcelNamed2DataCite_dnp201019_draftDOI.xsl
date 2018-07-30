@@ -67,8 +67,7 @@
                     </xsl:analyze-string>
                 </xsl:variable>
             
-                <xsl:result-document method="xml" href="file:///N:/UserA-F/frenchrb/Programming/JMU_DOIs/DataCite_metadata_drafts/etd_{$setName}_{$itemID}_draft.xml">
-                <!--<xsl:result-document method="xml" href="etd_dnp201019_{$pubYear}_{$itemID}.xml">-->
+                <xsl:result-document method="xml" href="DataCite_metadata_drafts/etd_{$setName}_{$itemID}_draft.xml">
                     <xsl:call-template name="row"/>
                 </xsl:result-document>
             </xsl:if>
