@@ -107,7 +107,7 @@ def main(input):
             print()
             
     #spreadsheet with DOIs added saved in same place as original input spreadsheet
-    book_out.save(input+'_DOIs_added.xls')
+    book_out.save(input+'_draft_DOIs_added.xls')
     print('Spreadsheet updated with DOIs')
     print()
     
