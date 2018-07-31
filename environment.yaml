@@ -1,4 +1,4 @@
-name: JMU_DOIs_testenv
+name: JMU_DOIs
 dependencies:
   - python=3.5
   - xlrd
