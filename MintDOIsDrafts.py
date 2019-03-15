@@ -4,9 +4,8 @@ import xlwt
 import xlutils.copy
 import re
 import configparser
-import os
 import requests
-import codecs
+from pathlib import Path
 
 #input is path to bepress spreadsheet in "Excel 97-2003 Workbook (.xls)" format
 def main(input):
@@ -14,14 +13,16 @@ def main(input):
     config = configparser.ConfigParser()
     config.read('local_settings.ini')
     
+    input = Path(input)
+    
     #upload DataCite metadata containing DOI
     #sends all .xml in the specified directory
     print('Uploading metadata to DataCite...')
-    metadata_dir = 'DataCite_metadata_drafts/'
-    for filename in os.listdir(metadata_dir):
-        if filename.endswith('.xml'):
+    metadata_dir = Path.cwd() / 'DataCite_metadata_drafts'
+    for filename in metadata_dir.iterdir():
+        if filename.suffix == '.xml':
             print('Sending metadata to DataCite:',filename)
-            metadata = codecs.open(metadata_dir+filename, 'r', encoding='utf-8').read()
+            metadata = (metadata_dir / filename).open('r', encoding='utf-8').read()
             response = requests.post(config['DataCite API']['endpoint_md'], auth = (config['DataCite API']['username'],config['DataCite API']['password']), data = metadata.encode('utf-8'), headers = {'Content-Type':'application/xml;charset=UTF-8'})
             if response.status_code == 201:
                 print(response.text)
@@ -32,7 +33,7 @@ def main(input):
     print()
     
     #read Bepress spreadsheet
-    book_in = xlrd.open_workbook(input)
+    book_in = xlrd.open_workbook(str(input))
     sheet1 = book_in.sheet_by_index(0) #get first sheet
     sheet1_name = book_in.sheet_names()[0] #name of first sheet
     #print('sheet1 type:',type(sheet1))
@@ -96,19 +97,19 @@ def main(input):
             #response2 = requests.put(config['DataCite API']['endpoint_doi'] + '/' + doi, auth = (config['DataCite API']['username'], config['DataCite API']['password']), data = doi_uri, headers = {'Content-Type':'text/plain;charset=UTF-8'})
             if response2.status_code == 201:
                 print(response2.text)
-                print()
                 #write DOI to sheet
                 book_out.get_sheet(0).write(row,doi_col_index,'https://doi.org/'+draft_doi)
             else:
                 print(str(response2.status_code) + ' ' + response2.text)
-                print()
                 
-            print()
             print()
             
     #spreadsheet with DOIs added saved in same place as original input spreadsheet
-    book_out.save(input+'_draft_DOIs_added.xls')
+    out_filename = input.stem + '_draft_DOIs_added.xls'
+    out_path = input.parent / out_filename
+    book_out.save(str(out_path))
     print('Spreadsheet updated with DOIs')
+    print('Saved at ' + str(out_path))
     print()
     
 if __name__ == '__main__':
