@@ -1,3 +1,4 @@
+import argparse
 import sys
 import xlrd
 import xlwt
@@ -8,12 +9,20 @@ import requests
 from pathlib import Path
 
 #input is path to bepress spreadsheet in "Excel 97-2003 Workbook (.xls)" format
-def main(input):
+def main(arglist):
+    #print(arglist)
+    parser = argparse.ArgumentParser()
+    parser.add_argument('input', help='path to bepress spreadsheet in "Excel 97-2003 Workbook (.xls)" format')
+    #parser.add_argument('output', help='save directory')
+    #parser.add_argument('--production', help='production DOIs', action='store_true')
+    args = parser.parse_args(arglist)
+    #print(args)
+    
     #read config file with API endpoint, username, and password
     config = configparser.ConfigParser()
     config.read('local_settings.ini')
     
-    input = Path(input)
+    input = Path(arglist[0])
     
     #upload DataCite metadata containing DOI
     #sends all .xml in the specified directory
@@ -113,4 +122,4 @@ def main(input):
     print()
     
 if __name__ == '__main__':
-    main(sys.argv[1])
+    main(sys.argv[1:])
