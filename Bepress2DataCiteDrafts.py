@@ -42,7 +42,7 @@ def main(arglist):
     tree = etree.parse(str(temp_file))
     # url = tree.xpath('/table/row/calc_url/text()')
     # url_setname = re.sub(r'^http:\/\/commons.lib.jmu.edu\/(.*)\/\d*$', r'\g<1>', url[0])
-    url_setname = tree.xpath('/table/row/issue/text()')
+    url_setname = tree.xpath('/table/row/issue/text()')[0]
     
     # Check that stylesheet exists and setname input matches setname in metadata before doing transformation
     if not xsl_coll_transform.is_file():
