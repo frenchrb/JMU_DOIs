@@ -34,8 +34,11 @@ def main(arglist):
         os.remove(str(temp_file))
     
     xsl_excel_named = Path('coll_transforms/Excel2NamedXML.xsl')
-    xsl_coll_transform = Path('coll_transforms/ExcelNamed2DataCite_' + setname + '_draftDOI.xsl')
-    #change line above if using one ETD XSLT
+    if setname in etd_setnames:
+        xsl_coll_transform = Path('coll_transforms/ExcelNamed2DataCite_etd_draftDOI.xsl')
+    #Add additional categories here
+    else:
+        xsl_coll_transform = Path('coll_transforms/ExcelNamed2DataCite_' + setname + '_draftDOI.xsl')
     
     # Transform Excel XML into XML with named nodes
     print('Transforming Excel XML...')
