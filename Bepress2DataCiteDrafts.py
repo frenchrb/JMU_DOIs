@@ -41,6 +41,9 @@ def main(arglist):
         xsl_coll_transform = Path('coll_transforms/ExcelNamed2DataCite_' + setname + '_draftDOI.xsl')
     
     # Transform Excel XML into XML with named nodes
+    print()
+    print('------------------------------------------------------------')
+    print('------------------------------------------------------------')
     print('Transforming Excel XML...')
     subprocess.call(['java', '-jar', config['Saxon']['saxon_path']+'saxon9he.jar', '-s:'+str(input), '-xsl:'+str(xsl_excel_named), '-o:'+str(temp_file), '-versionmsg:off'])
     print('Transformation complete')
@@ -63,6 +66,8 @@ def main(arglist):
         print('Transforming Excel to DataCite XML...')
         subprocess.call(['java', '-jar', config['Saxon']['saxon_path']+'saxon9he.jar', '-s:'+str(temp_file), '-xsl:'+str(xsl_coll_transform)])
         print('Transformation complete')
+    print('------------------------------------------------------------')
+    print('------------------------------------------------------------')
     
 if __name__ == '__main__':
     main(sys.argv[1:])

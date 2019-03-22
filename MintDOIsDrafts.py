@@ -58,8 +58,8 @@ def main(arglist):
     doi_count = doi_col_values[1:].count('')
     print(doi_count,'DOIs will be created')
     print()
-    print('----------------------------------------')
-    print('----------------------------------------')
+    print('------------------------------------------------------------')
+    print('------------------------------------------------------------')
     
     #Create list of row indices of new DOIs to be created
     new_dois = []
@@ -116,7 +116,7 @@ def main(arglist):
                     
                     #Upload DataCite metadata
                     print()
-                    print('Uploading metadata (' + metadata_filename + ' to DataCite...')
+                    print('Uploading metadata (' + metadata_filename + ') to DataCite...')
                     metadata = metadata_file.open('r', encoding='utf-8').read()
                     response = requests.post(config['DataCite API']['endpoint_md'], auth = (config['DataCite API']['username'],config['DataCite API']['password']), data = metadata.encode('utf-8'), headers = {'Content-Type':'application/xml;charset=UTF-8'})
                     if response.status_code == 201:
@@ -152,9 +152,9 @@ def main(arglist):
             else:
                 print('Metadata file not found')
             print()
-            print('----------------------------------------')
+            print('------------------------------------------------------------')
     
-    print('----------------------------------------')
+    print('------------------------------------------------------------')
     
     #Spreadsheet with DOIs added saved in same place as original input spreadsheet
     book_out.save(str(out_path))
