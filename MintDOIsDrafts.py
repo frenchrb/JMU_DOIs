@@ -76,8 +76,8 @@ def main(arglist):
     for row in range(1,sheet1.nrows):
         if row in new_dois:
             url = sheet1.cell(row,url_col_index).value
-            set_name = re.sub(r'http:\/\/commons\.lib\.jmu\.edu\/(.*?)\/(.*)$', r'\g<1>', url, flags=re.S)
-            item_number = re.sub(r'http:\/\/commons\.lib\.jmu\.edu\/(.*?)\/(.*)$', r'\g<2>', url, flags=re.S)
+            set_name = re.sub(r'https:\/\/commons\.lib\.jmu\.edu\/(.*?)\/(.*)$', r'\g<1>', url, flags=re.S)
+            item_number = re.sub(r'https:\/\/commons\.lib\.jmu\.edu\/(.*?)\/(.*)$', r'\g<2>', url, flags=re.S)
             
             #Get pub_year from Excel date format
             #excel_date_number = sheet1.cell(row,pub_date_col_index).value
