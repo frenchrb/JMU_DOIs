@@ -17,9 +17,13 @@ def main(arglist):
     args = parser.parse_args(arglist)
     #print(args)
     
-    # Read config file
-    config = configparser.ConfigParser()
+    # Read config file and parse setnames into lists by category
+    config = configparser.ConfigParser(allow_no_value=True)
     config.read('local_settings.ini')
+    etd_setnames = []
+    for i in config.items('ETD'):
+        etd_setnames.append(i[0])
+    #Add additional categories here
     
     setname = arglist[0]
     input = Path(arglist[1])
@@ -31,6 +35,7 @@ def main(arglist):
     
     xsl_excel_named = Path('coll_transforms/Excel2NamedXML.xsl')
     xsl_coll_transform = Path('coll_transforms/ExcelNamed2DataCite_' + setname + '_draftDOI.xsl')
+    #change line above if using one ETD XSLT
     
     # Transform Excel XML into XML with named nodes
     print('Transforming Excel XML...')

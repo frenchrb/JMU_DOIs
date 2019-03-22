@@ -1,14 +1,13 @@
 import argparse
+import configparser
+import re
+import requests
 import sys
 import xlrd
 import xlwt
 import xlutils.copy
-import re
-import configparser
-import requests
 from pathlib import Path
 
-#input is path to bepress spreadsheet in "Excel 97-2003 Workbook (.xls)" format
 def main(arglist):
     #print(arglist)
     parser = argparse.ArgumentParser()
@@ -18,9 +17,13 @@ def main(arglist):
     args = parser.parse_args(arglist)
     #print(args)
     
-    #read config file with API endpoint, username, and password
-    config = configparser.ConfigParser()
+    #Read config file and parse setnames into lists by category
+    config = configparser.ConfigParser(allow_no_value=True)
     config.read('local_settings.ini')
+    etd_setnames = []
+    for i in config.items('ETD'):
+        etd_setnames.append(i[0])
+    #Add additional categories here
     
     input = Path(arglist[0])
     
@@ -87,8 +90,13 @@ def main(arglist):
             #get pub_year from Excel date format
             #excel_date_number = sheet1.cell(row,pub_date_col_index).value
             #pub_year, month, day, hour, minute, second = xlrd.xldate_as_tuple(excel_date_number, book_in.datemode)
-        
-            draft_doi = '10.5072/etd/' + set_name + '/' + item_number
+            
+            draft_doi = '10.5072/'
+            if set_name in etd_setnames:
+                draft_doi += 'etd/'
+            #Add additional categories here
+            #draft_doi = '10.5072/etd/' + set_name + '/' + item_number
+            draft_doi += set_name + '/' + item_number
         
             print('Sheet row #',row+1)
             print(sheet1.cell(row, 0).value) #title
