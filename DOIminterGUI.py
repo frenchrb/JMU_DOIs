@@ -29,7 +29,13 @@ def openXLS():
     #print('openpath_xls: ' + openpath_xls)
 
 def runBepress2DataCiteDrafts():
-    print()
+    #print()
+    if not setname.get():
+        print('Please enter collection setname.')
+    try:
+        openpath_xml
+    except NameError:
+        print('Please select spreadsheet file.')
     args = []
     args.append(setname.get())
     args.append(openpath_xml)
@@ -40,7 +46,11 @@ def runBepress2DataCiteDrafts():
     # root.destroy()
     
 def runMintDOIsDrafts():
-    print()
+    #print()
+    try:
+        openpath_xls
+    except NameError:
+        print('Please select spreadsheet file.')
     args = []
     args.append(openpath_xls)
     # if production.get() == 1:
@@ -78,12 +88,12 @@ def main():
     button_run = Button(tab1_frame, text='Run Bepress2DataCiteDrafts', height=2, width=25, command=runBepress2DataCiteDrafts)
     
     #Lay out tab 1 widgets
-    label_entrybox_setname.grid(row = 1, column = 0, sticky = W)
-    entrybox_setname.grid(row = 1, column = 1)
-    label_button_open_xml.grid(row = 2, column = 0, columnspan = 2, sticky = W)
-    textarea_open_xml.grid(row = 3, column = 0)
+    label_entrybox_setname.grid(row = 1, column = 0, sticky = W, padx = 5, pady = 10)
+    entrybox_setname.grid(row = 1, column = 1, padx = 5, pady = 10)
+    label_button_open_xml.grid(row = 2, column = 0, columnspan = 2, sticky = W, padx = 5, pady = 10)
+    textarea_open_xml.grid(row = 3, column = 0, padx = 5, pady = 10)
     button_open_xml.grid(row = 3, column = 1)
-    button_run.grid(row = 4, column = 0, columnspan = 2)
+    button_run.grid(row = 4, column = 0, columnspan = 2, pady = 25)
 
     
     #Tab 2
@@ -97,10 +107,10 @@ def main():
     button_run = Button(tab2_frame, text='Run MintDOIsDrafts', height=2, width=25, command=runMintDOIsDrafts)
     
     #Lay out tab 2 widgets
-    label_button_open_xls.grid(row = 2, column = 0, columnspan = 2, sticky = W)
-    textarea_open_xls.grid(row = 3, column = 0)
+    label_button_open_xls.grid(row = 2, column = 0, columnspan = 2, sticky = W, padx = 5, pady = 10)
+    textarea_open_xls.grid(row = 3, column = 0, padx = 5, pady = 10)
     button_open_xls.grid(row = 3, column = 1)
-    button_run.grid(row = 4, column = 0, columnspan = 2)
+    button_run.grid(row = 4, column = 0, columnspan = 2, pady = 25)
     
     
     #Text area
