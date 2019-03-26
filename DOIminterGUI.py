@@ -8,89 +8,115 @@ class newStdOut():
     def __init__(self, oldStdOut, textArea): #remove oldStdOut
         self.oldStdOut = oldStdOut #remove if not using old stdout
         self.textArea = textArea
-        #open logfile
 
     def write(self, x):
         #self.oldStdOut.write(x)  #this prints to the old stdout (cmd line)
         self.textArea.insert(END, x)
         self.textArea.see(END)
         self.textArea.update_idletasks()
-        #write to logfile
     
     def flush(self):
         self.oldStdOut.flush() #replace this line with pass if removing old stdout stuff
-        #close logfile
-#probably have to do the same with standarderror if you want to see those messages
-#sys.stderror = newstdout() ??
 
-def open():
-    global openpath
-    openpath = filedialog.askopenfilename()
-    #print('openpath: ' + openpath)
+def openXML():
+    global openpath_xml
+    openpath_xml = filedialog.askopenfilename(title = 'Select file', filetypes = (("XML Spreadsheet 2003","*.xml"),("All files","*.*")))
+    #print('openpath_xml: ' + openpath_xml)
+
+def openXLS():
+    global openpath_xls
+    openpath_xls = filedialog.askopenfilename(title = 'Select file', filetypes = (("Excel 97-2003 Workbook","*.xls"),("All files","*.*")))
+    #print('openpath_xls: ' + openpath_xls)
 
 def runBepress2DataCiteDrafts():
     print()
     args = []
     args.append(setname.get())
-    args.append(openpath)
+    args.append(openpath_xml)
     # if production.get() == 1:
         # args.append('--production')
     #print(args)
     Bepress2DataCiteDrafts.main(args)
     # root.destroy()
     
+def runMintDOIsDrafts():
+    print()
+    args = []
+    args.append(openpath_xls)
+    # if production.get() == 1:
+        # args.append('--production')
+    #print(args)
+    MintDOIsDrafts.main(args)
+    # root.destroy()
+
 def main():
     root = Tk()
     root.wm_title('JMU DOI Minter')
     root.resizable(width = FALSE, height = FALSE)
     
-    label_entrybox_setname = Label(root, text='Enter bepress collection setname (e.g., "diss201019")')
-    label_entrybox_setname.grid(row = 0, column = 0, sticky = W)
+    #Tabs
+    notebook = ttk.Notebook(root)
+    tab1 = ttk.Frame(notebook)
+    tab2 = ttk.Frame(notebook)
+    notebook.add(tab1, text = '1. Create Metadata')
+    notebook.add(tab2, text = '2. Mint DOIs')
+    notebook.grid(row = 0, column = 0, sticky = NW)
     
+    
+    #Tab 1
+    tab1_frame = Frame(tab1)
+    tab1_frame.grid()
+    
+    #Create tab 1 widgets
+    label_entrybox_setname = Label(tab1_frame, text='Enter bepress collection setname (e.g., "diss201019")')
     global setname
     setname = StringVar()
-    entrybox_setname = Entry(root, textvariable = setname, width = 20)
-    entrybox_setname.grid(row = 0, column = 1)
+    entrybox_setname = Entry(tab1_frame, textvariable = setname, width = 20)
+    label_button_open_xml = Label(tab1_frame, text='Select bepress spreadsheet saved as "XML Spreadsheet 2003" (*.xml)"')
+    textarea_open_xml = Text(tab1_frame, height = 1, width = 40)
+    button_open_xml = Button(tab1_frame, text='Browse...', height = 1, width = 10, command=openXML)
+    button_run = Button(tab1_frame, text='Run Bepress2DataCiteDrafts', height=2, width=25, command=runBepress2DataCiteDrafts)
     
-    
-    label_button_open = Label(root, text='Select bepress spreadsheet saved as "XML Spreadsheet 2003" (*.xml)"')
-    label_button_open.grid(row = 1, column = 0, columnspan = 2, sticky = W)
-    
-    textarea_open = Text(root, height = 1, width = 40)
-    textarea_open.grid(row = 2, column = 0)
-    
-    button_open = Button(root, text='Browse...', height = 1, width = 10, command=open)
-    button_open.grid(row = 2, column = 1)
-    
-    
-    button_run = Button(root, text='Run Bepress2DataCiteDrafts', height=2, width=25, command=runBepress2DataCiteDrafts)
-    button_run.grid(row = 3, column = 0, columnspan = 2)
+    #Lay out tab 1 widgets
+    label_entrybox_setname.grid(row = 1, column = 0, sticky = W)
+    entrybox_setname.grid(row = 1, column = 1)
+    label_button_open_xml.grid(row = 2, column = 0, columnspan = 2, sticky = W)
+    textarea_open_xml.grid(row = 3, column = 0)
+    button_open_xml.grid(row = 3, column = 1)
+    button_run.grid(row = 4, column = 0, columnspan = 2)
 
-    # button_C = Button(root, text='Button C', height=2, width=25, command=buttonC)
-    # button_C.grid(row=2, column=0)
-
-    # button_D = Button(root, text='Function A', height=2, width=25, command=buttonD)
-    # button_D.grid(row=3, column=0)
-
-    #global text_area
+    
+    #Tab 2
+    tab2_frame = Frame(tab2)
+    tab2_frame.grid()
+    
+    #Create tab 2 widgets
+    label_button_open_xls = Label(tab2_frame, text='Select bepress spreadsheet saved as "Excel 97-2003 Workbook " (*.xls)"')
+    textarea_open_xls = Text(tab2_frame, height = 1, width = 40)
+    button_open_xls = Button(tab2_frame, text='Browse...', height = 1, width = 10, command=openXLS)
+    button_run = Button(tab2_frame, text='Run MintDOIsDrafts', height=2, width=25, command=runMintDOIsDrafts)
+    
+    #Lay out tab 2 widgets
+    label_button_open_xls.grid(row = 2, column = 0, columnspan = 2, sticky = W)
+    textarea_open_xls.grid(row = 3, column = 0)
+    button_open_xls.grid(row = 3, column = 1)
+    button_run.grid(row = 4, column = 0, columnspan = 2)
+    
+    
+    #Text area
     text_area = Text(root, height = 50, width = 70)
-    text_area.grid(row = 0, column = 2, rowspan = 4)
+    text_area.grid(row = 0, column = 2, rowspan = 5)
     text_area.update_idletasks()
     
     scrollbar = Scrollbar(root)
     text_area.config(yscrollcommand=scrollbar.set)
     scrollbar.config(command=text_area.yview)
-    scrollbar.grid(row=0, column=3, rowspan=4, sticky='NS')
+    scrollbar.grid(row=0, column=3, rowspan=5, sticky='NS')
 
     save_stdout = sys.stdout #remove
     sys.stdout = newStdOut(save_stdout, text_area) #remove save_stdout
 
     root.mainloop()
-
-    #subprocess.call - use p=subprocess.popen instead, including stdout=subprocess.PIPE and stderr=subprocess.PIPE
-    #stdout,stderr=p.communicate()
-    
-    #or subprocess.check_call?
     
 if __name__ == '__main__':
     main()
