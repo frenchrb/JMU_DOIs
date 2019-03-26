@@ -6,6 +6,7 @@ import sys
 import xlrd
 import xlwt
 import xlutils.copy
+from datetime import datetime
 from lxml import etree
 from pathlib import Path
 
@@ -27,6 +28,10 @@ def main(arglist):
     #Add additional categories here
     
     input = Path(arglist[0])
+    
+    #Timestamp output
+    date_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    print(date_time)
     
     #Read Bepress spreadsheet
     print()

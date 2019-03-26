@@ -4,6 +4,7 @@ import os
 import re
 import subprocess
 import sys
+from datetime import datetime
 from lxml import etree
 from pathlib import Path
 
@@ -28,6 +29,13 @@ def main(arglist):
     setname = arglist[0]
     input = Path(arglist[1])
     
+    #Timestamp output
+    date_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    print(date_time)
+    print()
+    print('------------------------------------------------------------')
+    print('------------------------------------------------------------')
+    
     temp_file = Path('excel_named_temp.xml')
     # Remove temp_file if it already exists
     if temp_file.is_file():
@@ -41,9 +49,6 @@ def main(arglist):
         xsl_coll_transform = Path('coll_transforms/ExcelNamed2DataCite_' + setname + '_draftDOI.xsl')
     
     # Transform Excel XML into XML with named nodes
-    print()
-    print('------------------------------------------------------------')
-    print('------------------------------------------------------------')
     print('Transforming Excel XML...')
     subprocess.call(['java', '-jar', config['Saxon']['saxon_path']+'saxon9he.jar', '-s:'+str(input), '-xsl:'+str(xsl_excel_named), '-o:'+str(temp_file), '-versionmsg:off'])
     print('Transformation complete')
@@ -68,6 +73,7 @@ def main(arglist):
         print('Transformation complete')
     print('------------------------------------------------------------')
     print('------------------------------------------------------------')
+    print()
     
 if __name__ == '__main__':
     main(sys.argv[1:])
