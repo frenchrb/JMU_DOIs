@@ -117,7 +117,7 @@ def main():
     
     
     #Text area
-    text_area = Text(root, height = 50, width = 70)
+    text_area = Text(root, height = 40, width = 70)
     text_area.grid(row = 0, column = 2, rowspan = 5)
     text_area.update_idletasks()
     
