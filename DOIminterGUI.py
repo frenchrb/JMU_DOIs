@@ -5,18 +5,18 @@ import Bepress2DataCiteDrafts
 import MintDOIsDrafts
 
 class newStdOut():
-    def __init__(self, oldStdOut, textArea): #remove oldStdOut
-        self.oldStdOut = oldStdOut #remove if not using old stdout
+    def __init__(self, oldStdOut, textArea):
+        self.oldStdOut = oldStdOut
         self.textArea = textArea
 
     def write(self, x):
-        #self.oldStdOut.write(x)  #this prints to the old stdout (cmd line)
+        #self.oldStdOut.write(x)
         self.textArea.insert(END, x)
         self.textArea.see(END)
         self.textArea.update_idletasks()
     
     def flush(self):
-        self.oldStdOut.flush() #replace this line with pass if removing old stdout stuff
+        self.oldStdOut.flush()
 
 def openXML():
     global openpath_xml
@@ -31,11 +31,13 @@ def openXLS():
 def runBepress2DataCiteDrafts():
     #print()
     if not setname.get():
-        print('Please enter collection setname.')
+        print('Please enter a collection setname.')
+        return
     try:
         openpath_xml
     except NameError:
-        print('Please select spreadsheet file.')
+        print('Please select a spreadsheet file.')
+        return
     args = []
     args.append(setname.get())
     args.append(openpath_xml)
@@ -50,7 +52,8 @@ def runMintDOIsDrafts():
     try:
         openpath_xls
     except NameError:
-        print('Please select spreadsheet file.')
+        print('Please select a spreadsheet file.')
+        return
     args = []
     args.append(openpath_xls)
     # if production.get() == 1:
@@ -123,9 +126,12 @@ def main():
     scrollbar.config(command=text_area.yview)
     scrollbar.grid(row=0, column=3, rowspan=5, sticky='NS')
 
-    save_stdout = sys.stdout #remove
-    sys.stdout = newStdOut(save_stdout, text_area) #remove save_stdout
-
+    save_stdout = sys.stdout
+    sys.stdout = newStdOut(save_stdout, text_area)
+    
+    save_stderr = sys.stderr
+    sys.stderr = newStdOut(save_stderr, text_area)
+    
     root.mainloop()
     
 if __name__ == '__main__':
