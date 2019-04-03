@@ -86,7 +86,7 @@ def main():
     setname = StringVar()
     entrybox_setname = Entry(tab1_frame, textvariable = setname, width = 20)
     label_button_open_xml = Label(tab1_frame, text='Select bepress spreadsheet saved as "XML Spreadsheet 2003" (*.xml)"')
-    textarea_open_xml = Text(tab1_frame, height = 1, width = 40)
+    #textarea_open_xml = Text(tab1_frame, height = 1, width = 40)
     button_open_xml = Button(tab1_frame, text='Browse...', height = 1, width = 10, command=openXML)
     button_run = Button(tab1_frame, text='Run Bepress2DataCiteDrafts', height=2, width=25, command=runBepress2DataCiteDrafts)
     
@@ -94,8 +94,8 @@ def main():
     label_entrybox_setname.grid(row = 1, column = 0, sticky = W, padx = 5, pady = 10)
     entrybox_setname.grid(row = 1, column = 1, padx = 5, pady = 10)
     label_button_open_xml.grid(row = 2, column = 0, columnspan = 2, sticky = W, padx = 5, pady = 10)
-    textarea_open_xml.grid(row = 3, column = 0, padx = 5, pady = 10)
-    button_open_xml.grid(row = 3, column = 1)
+    #textarea_open_xml.grid(row = 3, column = 0, padx = 5, pady = 10)
+    button_open_xml.grid(row = 3, column = 0, sticky = W)
     button_run.grid(row = 4, column = 0, columnspan = 2, pady = 25)
 
     
@@ -105,14 +105,14 @@ def main():
     
     #Create tab 2 widgets
     label_button_open_xls = Label(tab2_frame, text='Select bepress spreadsheet saved as "Excel 97-2003 Workbook " (*.xls)"')
-    textarea_open_xls = Text(tab2_frame, height = 1, width = 40)
+    #textarea_open_xls = Text(tab2_frame, height = 1, width = 40)
     button_open_xls = Button(tab2_frame, text='Browse...', height = 1, width = 10, command=openXLS)
     button_run = Button(tab2_frame, text='Run MintDOIsDrafts', height=2, width=25, command=runMintDOIsDrafts)
     
     #Lay out tab 2 widgets
     label_button_open_xls.grid(row = 2, column = 0, columnspan = 2, sticky = W, padx = 5, pady = 10)
-    textarea_open_xls.grid(row = 3, column = 0, padx = 5, pady = 10)
-    button_open_xls.grid(row = 3, column = 1)
+    #textarea_open_xls.grid(row = 3, column = 0, padx = 5, pady = 10)
+    button_open_xls.grid(row = 3, column = 0, sticky = W)
     button_run.grid(row = 4, column = 0, columnspan = 2, pady = 25)
     
     
