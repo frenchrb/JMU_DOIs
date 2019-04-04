@@ -1,7 +1,6 @@
 import argparse
 import configparser
 import os
-import re
 import subprocess
 import sys
 from datetime import datetime
@@ -10,14 +9,12 @@ from pathlib import Path
 
 
 def main(arglist):
-    #print(arglist)
     parser = argparse.ArgumentParser()
     parser.add_argument('setname', help='bepress collection setname (e.g., diss201019)')
     parser.add_argument('input', help='path to Bepress spreadsheet saved as "XML Spreadsheet 2003"')
-    #parser.add_argument('output', help='save directory')
-    #parser.add_argument('--production', help='production DOIs', action='store_true')
+    # parser.add_argument('output', help='save directory')
+    parser.add_argument('--production', help='production DOIs', action='store_true')
     args = parser.parse_args(arglist)
-    #print(args)
     
     # Read config file and parse setnames into lists by category
     config = configparser.ConfigParser(allow_no_value=True)
@@ -27,8 +24,9 @@ def main(arglist):
         etd_setnames.append(i[0])
     # Add additional categories here
     
-    setname = arglist[0]
-    input = Path(arglist[1])
+    setname = args.setname
+    input = Path(args.input)
+    production = args.production
     
     # Timestamp output
     date_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -37,21 +35,36 @@ def main(arglist):
     print('------------------------------------------------------------')
     print('------------------------------------------------------------')
     
+    if production:
+        print()
+        print('***********************************************************')
+        print('                      PRODUCTION DOIS                      ')
+        print('***********************************************************')
+        print()
+    
     temp_file = Path('excel_named_temp.xml')
     # Remove temp_file if it already exists
     if temp_file.is_file():
         os.remove(str(temp_file))
     
     xsl_excel_named = Path('coll_transforms/Excel2NamedXML.xsl')
+    
+    xsl_coll_transform_filename = 'ExcelNamed2DataCite_'
     if setname in etd_setnames:
-        xsl_coll_transform = Path('coll_transforms/ExcelNamed2DataCite_etd_production.xsl')
+        xsl_coll_transform_filename += 'etd'
     # Add additional categories here
     else:
-        xsl_coll_transform = Path('coll_transforms/ExcelNamed2DataCite_' + setname + '_production.xsl')
+        xsl_coll_transform_filename += setname
+    if production:
+        xsl_coll_transform_filename += '_production.xsl'
+    else:
+        xsl_coll_transform_filename += '_draft.xsl'
+    xsl_coll_transform = Path('coll_transforms/' + xsl_coll_transform_filename)
     
     # Transform Excel XML into XML with named nodes
     print('Transforming Excel XML...')
-    subprocess.call(['java', '-jar', config['Saxon']['saxon_path']+'saxon9he.jar', '-s:'+str(input), '-xsl:'+str(xsl_excel_named), '-o:'+str(temp_file), '-versionmsg:off'])
+    subprocess.call(['java', '-jar', config['Saxon']['saxon_path']+'saxon9he.jar', '-s:'+str(input),
+                     '-xsl:'+str(xsl_excel_named), '-o:'+str(temp_file), '-versionmsg:off'])
     print('Transformation complete')
     print()
     
@@ -70,7 +83,8 @@ def main(arglist):
         # Transform Excel Named XML to DataCite XML (items without DOIs only)
         # Output location and filenames are specified in XSLT
         print('Transforming Excel to DataCite XML...')
-        subprocess.call(['java', '-jar', config['Saxon']['saxon_path']+'saxon9he.jar', '-s:'+str(temp_file), '-xsl:'+str(xsl_coll_transform)])
+        subprocess.call(['java', '-jar', config['Saxon']['saxon_path']+'saxon9he.jar', '-s:'+str(temp_file),
+                         '-xsl:'+str(xsl_coll_transform)])
         print('Transformation complete')
     print('------------------------------------------------------------')
     print('------------------------------------------------------------')
