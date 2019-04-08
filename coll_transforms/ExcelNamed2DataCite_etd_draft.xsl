@@ -7,7 +7,7 @@
     exclude-result-prefixes="xs functx datacite">
     <xsl:output encoding="UTF-8" method="xml" indent="yes"/>
     
-    <!-- Transforms Excel Named XML into DataCite XML, JMU Scholarly Commons ETDs (draft DOI)
+    <!-- Transforms bepress metadata in XML format into DataCite XML, JMU Scholarly Commons ETDs (draft DOI)
     Created 2019/03/22 by Rebecca B. French, Metadata Analyst Librarian at James Madison University
     This software is distributed under a Creative Commons Attribution Non-Commercial License -->
     
@@ -52,7 +52,7 @@
     
     <xsl:template match="/">
         <xsl:for-each select="table/row">
-            <xsl:if test="doi='' and calc_url!=''">
+            <xsl:if test="calc_url!=''">
                 <xsl:variable name="setName">
                     <xsl:value-of select="issue"/>
                 </xsl:variable>

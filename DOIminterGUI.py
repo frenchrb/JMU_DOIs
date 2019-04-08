@@ -50,7 +50,7 @@ def runBepress2DataCite():
         print('Please enter a collection setname.')
         return
     try:
-        openpath_xml
+        openpath_xls
     except NameError:
         print('Please select a spreadsheet file.')
         return
@@ -63,7 +63,7 @@ def runBepress2DataCite():
     
     args = []
     args.append(setname.get())
-    args.append(openpath_xml)
+    args.append(openpath_xls)
     if tab1_radiobutton_production_var.get():
         args.append('--production')
     Bepress2DataCite.main(args)
@@ -121,10 +121,10 @@ def main():
     global setname
     setname = StringVar()
     entrybox_setname = Entry(tab1_frame, textvariable=setname, width=20)
-    label_button_open_xml = Label(tab1_frame,
-                                  text='Select bepress spreadsheet saved as "XML Spreadsheet 2003" (*.xml)"')
+    label_button_open1 = Label(tab1_frame,
+                                  text='Select bepress spreadsheet saved as "Excel 97-2003 Workbook " (*.xls)"')
     # textarea_open_xml = Text(tab1_frame, height=1, width=40)
-    button_open_xml = Button(tab1_frame, text='Browse...', height=1, width=10, command=openXML)
+    button_open_xml = Button(tab1_frame, text='Browse...', height=1, width=10, command=openXLS)
     tab1_radiobutton_frame = Frame(tab1_frame, relief='groove', borderwidth=2)
     global tab1_radiobutton_production_var
     tab1_radiobutton_production_var = IntVar()
@@ -139,7 +139,7 @@ def main():
     # Lay out tab 1 widgets
     label_entrybox_setname.grid(row=1, column=0, sticky=W, padx=5, pady=10)
     entrybox_setname.grid(row=1, column=1, padx=5, pady=10)
-    label_button_open_xml.grid(row=2, column=0, columnspan=2, sticky=W, padx=5, pady=10)
+    label_button_open1.grid(row=2, column=0, columnspan=2, sticky=W, padx=5, pady=10)
     # textarea_open_xml.grid(row=3, column=0, padx=5, pady=10)
     button_open_xml.grid(row=3, column=0, sticky=W)
     tab1_radiobutton_frame.grid(row=4, column=0, sticky=W, padx=5, pady=10)
@@ -152,7 +152,7 @@ def main():
     tab2_frame.grid()
     
     # Create tab 2 widgets
-    label_button_open_xls = Label(tab2_frame,
+    label_button_open2 = Label(tab2_frame,
                                   text='Select bepress spreadsheet saved as "Excel 97-2003 Workbook " (*.xls)"')
     # textarea_open_xls = Text(tab2_frame, height=1, width=40)
     button_open_xls = Button(tab2_frame, text='Browse...', height=1, width=10, command=openXLS)
@@ -168,7 +168,7 @@ def main():
     button_run = Button(tab2_frame, text='Mint DOIs', height=2, width=25, command=runMintDOIs)
     
     # Lay out tab 2 widgets
-    label_button_open_xls.grid(row=2, column=0, columnspan=2, sticky=W, padx=5, pady=10)
+    label_button_open2.grid(row=2, column=0, columnspan=2, sticky=W, padx=5, pady=10)
     # textarea_open_xls.grid(row=3, column=0, padx=5, pady=10)
     button_open_xls.grid(row=3, column=0, sticky=W)
     tab2_radiobutton_frame.grid(row=4, column=0, sticky=W, padx=5, pady=10)
