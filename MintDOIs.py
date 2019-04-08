@@ -190,6 +190,7 @@ def main(arglist):
     
     # Spreadsheet with DOIs added saved in same place as original input spreadsheet
     book_out.save(str(out_path))
+    print()
     print('Spreadsheet updated with DOIs')
     print('Saved at ' + str(out_path))
     print()

@@ -131,6 +131,12 @@ def main(arglist):
     print('------------------------------------------------------------')
     print('------------------------------------------------------------')
     print()
+    
+    if production:
+        out_path = input.parent / 'DataCite_metadata'
+    else:
+        out_path = Path(os.getcwd()) / 'DataCite_metadata_drafts'
+    print('Metadata files saved at ' + str(out_path))
 
 
 if __name__ == '__main__':

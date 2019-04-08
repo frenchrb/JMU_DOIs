@@ -2,6 +2,8 @@ from tkinter import *
 from tkinter import filedialog
 from tkinter import simpledialog
 from tkinter import ttk
+import os
+import subprocess
 import Bepress2DataCite
 import MintDOIs
 
@@ -99,6 +101,10 @@ def runMintDOIs():
     # root.destroy()
 
 
+def open_folder():
+    subprocess.Popen('explorer ' + os.getcwd())
+
+
 def main():
     root = Tk()
     root.wm_title('JMU DOI Minter')
@@ -124,7 +130,7 @@ def main():
     label_button_open1 = Label(tab1_frame,
                                   text='Select bepress spreadsheet saved as "Excel 97-2003 Workbook " (*.xls)"')
     # textarea_open_xml = Text(tab1_frame, height=1, width=40)
-    button_open_xml = Button(tab1_frame, text='Browse...', height=1, width=10, command=openXLS)
+    button_open1 = Button(tab1_frame, text='Browse...', height=1, width=10, command=openXLS)
     tab1_radiobutton_frame = Frame(tab1_frame, relief='groove', borderwidth=2)
     global tab1_radiobutton_production_var
     tab1_radiobutton_production_var = IntVar()
@@ -135,17 +141,19 @@ def main():
     tab1_radiobutton_production = Radiobutton(tab1_radiobutton_frame, text='Production DOIs',
                                               variable=tab1_radiobutton_production_var, value=True)
     button_run = Button(tab1_frame, text='Generate Metadata', height=2, width=25, command=runBepress2DataCite)
+    button_open_folder1 = Button(tab1_frame, text='Open folder in Explorer', height=1, width=25, command=open_folder)
     
     # Lay out tab 1 widgets
     label_entrybox_setname.grid(row=1, column=0, sticky=W, padx=5, pady=10)
     entrybox_setname.grid(row=1, column=1, padx=5, pady=10)
     label_button_open1.grid(row=2, column=0, columnspan=2, sticky=W, padx=5, pady=10)
     # textarea_open_xml.grid(row=3, column=0, padx=5, pady=10)
-    button_open_xml.grid(row=3, column=0, sticky=W)
+    button_open1.grid(row=3, column=0, sticky=W, padx=5)
     tab1_radiobutton_frame.grid(row=4, column=0, sticky=W, padx=5, pady=10)
     tab1_radiobutton_draft.grid(row=0, column=0, sticky=W)
     tab1_radiobutton_production.grid(row=1, column=0, sticky=W)
     button_run.grid(row=7, column=0, columnspan=2, pady=25)
+    button_open_folder1.grid(row=8, column=0, columnspan=2, pady=25)
 
     # Tab 2
     tab2_frame = Frame(tab2)
@@ -155,7 +163,7 @@ def main():
     label_button_open2 = Label(tab2_frame,
                                   text='Select bepress spreadsheet saved as "Excel 97-2003 Workbook " (*.xls)"')
     # textarea_open_xls = Text(tab2_frame, height=1, width=40)
-    button_open_xls = Button(tab2_frame, text='Browse...', height=1, width=10, command=openXLS)
+    button_open2 = Button(tab2_frame, text='Browse...', height=1, width=10, command=openXLS)
     tab2_radiobutton_frame = Frame(tab2_frame, relief='groove', borderwidth=2)
     global tab2_radiobutton_production_var
     tab2_radiobutton_production_var = IntVar()
@@ -166,15 +174,17 @@ def main():
     tab2_radiobutton_production = Radiobutton(tab2_radiobutton_frame, text='Production DOIs',
                                               variable=tab2_radiobutton_production_var, value=True)
     button_run = Button(tab2_frame, text='Mint DOIs', height=2, width=25, command=runMintDOIs)
+    button_open_folder2 = Button(tab2_frame, text='Open folder in Explorer', height=1, width=25, command=open_folder)
     
     # Lay out tab 2 widgets
     label_button_open2.grid(row=2, column=0, columnspan=2, sticky=W, padx=5, pady=10)
     # textarea_open_xls.grid(row=3, column=0, padx=5, pady=10)
-    button_open_xls.grid(row=3, column=0, sticky=W)
+    button_open2.grid(row=3, column=0, sticky=W, padx=5)
     tab2_radiobutton_frame.grid(row=4, column=0, sticky=W, padx=5, pady=10)
     tab2_radiobutton_draft.grid(row=0, column=0, sticky=W)
     tab2_radiobutton_production.grid(row=1, column=0, sticky=W)
     button_run.grid(row=5, column=0, columnspan=2, pady=25)
+    button_open_folder2.grid(row=8, column=0, columnspan=2, pady=25)
 
     # Text area
     text_area = Text(root, height=40, width=70)
