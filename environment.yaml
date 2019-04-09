@@ -1,7 +1,9 @@
 name: JMU_DOIs
 dependencies:
   - python=3.5
+  - lxml
+  - requests
   - xlrd
   - xlwt
   - xlutils
-  - requests
+  - pyinstaller=3.3.1
