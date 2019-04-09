@@ -37,6 +37,14 @@ def openXLS():
     # print('openpath_xls: ' + openpath_xls)
 
 
+def clear_openpath_xls(event):
+    global openpath_xls
+    try:
+        del openpath_xls
+    except NameError:
+        return
+
+
 def confirmProduction():
     production_check = simpledialog.askstring('Warning: Production DOIs', 'You have selected Production DOIs. Production DOIs cannot be deleted.\n\nTo confirm your selection, please type "Yes, I\'m sure!" in the box below and click OK.\n')
     if production_check == 'Yes, I\'m sure!':
@@ -117,6 +125,7 @@ def main():
     notebook.add(tab1, text='1. Create Metadata')
     notebook.add(tab2, text='2. Mint DOIs')
     notebook.grid(row=0, column=0, sticky=NW)
+    notebook.bind('<<NotebookTabChanged>>', clear_openpath_xls)
 
     # Tab 1
     tab1_frame = Frame(tab1)
@@ -128,7 +137,7 @@ def main():
     setname = StringVar()
     entrybox_setname = Entry(tab1_frame, textvariable=setname, width=20)
     label_button_open1 = Label(tab1_frame,
-                                  text='Select bepress spreadsheet saved as "Excel 97-2003 Workbook " (*.xls)"')
+                                  text='Select bepress spreadsheet saved as "Excel 97-2003 Workbook (*.xls)"')
     # textarea_open_xml = Text(tab1_frame, height=1, width=40)
     button_open1 = Button(tab1_frame, text='Browse...', height=1, width=10, command=openXLS)
     tab1_radiobutton_frame = Frame(tab1_frame, relief='groove', borderwidth=2)
@@ -161,7 +170,7 @@ def main():
     
     # Create tab 2 widgets
     label_button_open2 = Label(tab2_frame,
-                                  text='Select bepress spreadsheet saved as "Excel 97-2003 Workbook " (*.xls)"')
+                                  text='Select bepress spreadsheet saved as "Excel 97-2003 Workbook (*.xls)"')
     # textarea_open_xls = Text(tab2_frame, height=1, width=40)
     button_open2 = Button(tab2_frame, text='Browse...', height=1, width=10, command=openXLS)
     tab2_radiobutton_frame = Frame(tab2_frame, relief='groove', borderwidth=2)
