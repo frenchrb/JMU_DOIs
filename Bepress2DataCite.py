@@ -128,15 +128,17 @@ def main(arglist):
         subprocess.call(['java', '-jar', config['Saxon']['saxon_path']+'saxon9he.jar', '-s:'+str(temp_file),
                          '-xsl:'+str(xsl_coll_transform)])
         print('Transformation complete')
+        print()
+        
+        if production:
+            out_path = input.parent / 'DataCite_metadata'
+        else:
+            out_path = Path(os.getcwd()) / 'DataCite_metadata_drafts'
+        print('Metadata files saved in ' + str(out_path))
     print('------------------------------------------------------------')
     print('------------------------------------------------------------')
     print()
     
-    if production:
-        out_path = input.parent / 'DataCite_metadata'
-    else:
-        out_path = Path(os.getcwd()) / 'DataCite_metadata_drafts'
-    print('Metadata files saved at ' + str(out_path))
 
 
 if __name__ == '__main__':
