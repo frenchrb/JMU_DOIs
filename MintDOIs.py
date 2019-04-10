@@ -60,7 +60,8 @@ def main(arglist):
     # Turn the xlrd Book into xlwt Workbook
     book_out = xlutils.copy.copy(book_in)
     out_filename = input.stem + '_with_DOIs.xls'
-    out_path = input.parent / out_filename
+    # out_path = input.parent / out_filename  # save in location of input spreadsheet
+    out_path = Path.cwd() / 'bepress_spreadsheets' / out_filename  # save in bepress_spreadsheets folder
     
     doi_col_values = sheet1.col_values(doi_col_index)  # includes header row
     
