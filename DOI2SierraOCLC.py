@@ -201,7 +201,7 @@ def main(arglist):
             doi_url = 'https://doi.org/' + doi
             
             spreadsheet_024 = 'doi:' + doi + ' ‡2 doi'
-            spreadsheet_856 = '‡z TEXT HERE? ‡u ' + doi_url
+            spreadsheet_856 = '‡z Full-text on the Internet ‡u ' + doi_url
             
             field_907 = Field(tag = '907',
                     indicators = [' ',' '],
@@ -214,13 +214,33 @@ def main(arglist):
             field_856 = Field(tag = '856',
                     indicators = ['4','0'],
                     subfields = [
-                        'z', 'TEXT HERE?',
+                        'z', 'Full-text on the Internet',
                         'u', doi_url])
-
+            field_506_1 = Field(tag = '506',
+                    indicators = ['0',' '],
+                    subfields = [
+                        'a', 'James Madison University Libraries is providing a metadata record and hyperlink to this full-text resource.',
+                        'f', 'Unrestricted online access',
+                        '2', 'star'])
+            field_506_2 = Field(tag = '506',
+                    indicators = ['0',' '],
+                    subfields = [
+                        'a', 'Open access content.',
+                        'f', 'Open access content',
+                        '2', 'star'])
+            field_540 = Field(tag = '540',
+                    indicators = [' ',' '],
+                    subfields = [
+                        'a', 'This work is licensed under a Creative Commons Attribution-NonCommercial-No Derivative Works 4.0 License.',
+                        'u', 'https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode'])
+            
             record = Record()
             record.add_ordered_field(field_907)
             record.add_ordered_field(field_024)
             record.add_ordered_field(field_856)
+            record.add_ordered_field(field_506_1)
+            record.add_ordered_field(field_506_2)
+            record.add_ordered_field(field_540)
             outmarc.write(record.as_marc())
             
             outsheet.write(i, 0, sierra_data[j][0])
