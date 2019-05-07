@@ -186,7 +186,7 @@ def main(arglist):
         col_headers = ['OCLC Number', 'Bib Number', '024', '856']
         for x, y in enumerate(col_headers, 0):
             outsheet.write(0, x, y)
-        outbook.save('Changes for OCLC.xls')
+        outbook.save('OCLC Changes.xls')
         
         for i, j in enumerate(sierra_data, 1):
             print(i)
@@ -198,7 +198,7 @@ def main(arglist):
             doi = doi_url.replace('https://doi.org/', '')
             
             spreadsheet_024 = '7\$adoi:' + doi + '$2doi'
-            spreadsheet_856 = '40$zFull-text on the Internet$u' + doi_url
+            #spreadsheet_856 = '40$zFull-text on the Internet$u' + doi_url
             
             # Get OCLC number
             oclcnum = sierra_data[j][0]
@@ -248,7 +248,7 @@ def main(arglist):
             outsheet.write(i, 0, oclcnum)
             outsheet.write(i, 1, j)
             outsheet.write(i, 2, spreadsheet_024)
-            outsheet.write(i, 3, spreadsheet_856)
+            outsheet.write(i, 3, doi_url)
             outbook.save('Changes for OCLC.xls') 
         outmarc.close()
         outtext.close()
