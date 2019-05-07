@@ -13,10 +13,6 @@ from pymarc import Record, Field
 
 
 def main(arglist):
-# outputs:
-	# short MARC records with bib number and DOI fields
-    # text file of 001s
-    
     parser = argparse.ArgumentParser()
     parser.add_argument('setname', help='bepress collection setname (e.g., diss201019)')
     parser.add_argument('input', help='path to bepress spreadsheet (containing DOIs) in "Excel 97-2003 Workbook (.xls)" format')
@@ -182,11 +178,12 @@ def main(arglist):
         print(sierra_data)
             
         
-        # Create short MARC records with bib number and DOI fields, and TODO create spreadsheet with OCLC numbers and DOI fields
+        # Create short MARC records with bib number and DOI fields, and create spreadsheet with OCLC numbers and DOI fields
         outmarc = open('shortrecs.mrc', 'wb')
+        outtext = open('searchkeys.txt', 'w')
         outbook = xlwt.Workbook()
         outsheet = outbook.add_sheet('Sheet 1')
-        col_headers = ['OCLC Number', 'Bib Number', '024 7_', '856 40']
+        col_headers = ['OCLC Number', 'Bib Number', '024', '856']
         for x, y in enumerate(col_headers, 0):
             outsheet.write(0, x, y)
         outbook.save('Changes for OCLC.xls')
@@ -196,12 +193,15 @@ def main(arglist):
             print(j)
             
             # Get DOI from spreadsheet data
-            doi = bepress_data[sierra_data[j][1]]
-            print(doi)
-            doi_url = 'https://doi.org/' + doi
+            doi_url = bepress_data[sierra_data[j][1]]
+            print(doi_url)
+            doi = doi_url.replace('https://doi.org/', '')
             
-            spreadsheet_024 = 'doi:' + doi + ' ‡2 doi'
-            spreadsheet_856 = '‡z Full-text on the Internet ‡u ' + doi_url
+            spreadsheet_024 = '7\$adoi:' + doi + '$2doi'
+            spreadsheet_856 = '40$zFull-text on the Internet$u' + doi_url
+            
+            # Get OCLC number
+            oclcnum = sierra_data[j][0]
             
             field_907 = Field(tag = '907',
                     indicators = [' ',' '],
@@ -243,12 +243,15 @@ def main(arglist):
             record.add_ordered_field(field_540)
             outmarc.write(record.as_marc())
             
-            outsheet.write(i, 0, sierra_data[j][0])
+            outtext.write(oclcnum + '\n')
+            
+            outsheet.write(i, 0, oclcnum)
             outsheet.write(i, 1, j)
             outsheet.write(i, 2, spreadsheet_024)
             outsheet.write(i, 3, spreadsheet_856)
             outbook.save('Changes for OCLC.xls') 
         outmarc.close()
+        outtext.close()
     
     
 if __name__ == '__main__':
