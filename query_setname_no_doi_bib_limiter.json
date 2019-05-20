@@ -29,7 +29,7 @@
       "expr": {
         "op": "has",
         "operands": [
-          "https://commons.lib.jmu.edu/SETNAME",
+          "commons.lib.jmu.edu/SETNAME",
           ""
         ]
       }

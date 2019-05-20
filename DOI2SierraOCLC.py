@@ -197,8 +197,8 @@ def main(arglist):
             print(doi_url)
             doi = doi_url.replace('https://doi.org/', '')
             
-            spreadsheet_024 = '7\$adoi:' + doi + '$2doi'
-            #spreadsheet_856 = '40$zFull-text on the Internet$u' + doi_url
+            spreadsheet_024 = '7\$a' + doi + '$2doi'
+            #spreadsheet_856 = '40$zFull-text of dissertation on the Internet$u' + doi_url
             
             # Get OCLC number
             oclcnum = sierra_data[j][0]
@@ -209,12 +209,12 @@ def main(arglist):
             field_024 = Field(tag = '024',
                     indicators = ['7',' '],
                     subfields = [
-                        'a', 'doi:' + doi,
+                        'a', doi,
                         '2', 'doi'])
             field_856 = Field(tag = '856',
                     indicators = ['4','0'],
                     subfields = [
-                        'z', 'Full-text on the Internet',
+                        'z', 'Full-text of dissertation on the Internet',
                         'u', doi_url])
             field_506_1 = Field(tag = '506',
                     indicators = ['0',' '],
@@ -249,7 +249,7 @@ def main(arglist):
             outsheet.write(i, 1, j)
             outsheet.write(i, 2, spreadsheet_024)
             outsheet.write(i, 3, doi_url)
-            outbook.save('Changes for OCLC.xls') 
+            outbook.save('OCLC Changes.xls') 
         outmarc.close()
         outtext.close()
     
