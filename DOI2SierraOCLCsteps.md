@@ -49,36 +49,36 @@ Outputs:
 
 ### Edit Records
 1. All edits in this section should effect all records. If any indicate that not all records were changed, you will have to find what was missed and make the necessary change(s).
-2. Edit menu > Replace
-	Find: $uhttp://commons.lib.jmu.edu/
-	Replace: $uhttps://doi.org/10.25885/etd/
-	Click Replace All.
+2. Edit menu > Replace  
+	Find: $uhttp://commons.lib.jmu.edu/  
+	Replace: $uhttps://doi.org/10.25885/etd/  
+	Click Replace All.  
 	Close Replace window.
-3. Tools menu > Build New Field
-	Pattern: =024  7\$a{856$u}$2doi
-	Check box for Always add new field.
-	Click Process.
+3. Tools menu > Build New Field  
+	Pattern: =024  7\$a{856$u}$2doi  
+	Check box for Always add new field.  
+	Click Process.  
 	Close Build New Field window.
-4. Edit menu > Replace
-	Find: $ahttps://doi.org/
-	Replace: $a
-	Click Replace All.
+4. Edit menu > Replace  
+	Find: $ahttps://doi.org/  
+	Replace: $a  
+	Click Replace All.  
 	Close Replace window.
-5. Tools menu > Add/Delete Field
-	Field: 506
-	Field Data: 0\$aJames Madison University Libraries is providing a metadata record and hyperlink to this full-text resource.$fUnrestricted online access$2star
-	Uncheck box for Insert before.
+5. Tools menu > Add/Delete Field  
+	Field: 506  
+	Field Data: 0\$aJames Madison University Libraries is providing a metadata record and hyperlink to this full-text resource.$fUnrestricted online access$2star  
+	Uncheck box for Insert before.  
 	Click Add Field.
-6. Still in Add/Delete Field
-	Field: 506
-	Field Data: 0\$aOpen access content$fOpen access content$2star
-	Check box for Insert last.
+6. Still in Add/Delete Field  
+	Field: 506  
+	Field Data: 0\$aOpen access content$fOpen access content$2star  
+	Check box for Insert last.  
 	Click Add Field.
-7. Still in Add/Delete Field
-	Field: 540
-	Field Data: \\$aThis work is licensed under a Creative Commons Attribution-NonCommercial-No Derivative Works 4.0 License.$uhttps://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
-	Box for Insert last is checked.
-	Click Add Field.
+7. Still in Add/Delete Field  
+	Field: 540  
+	Field Data: \\$aThis work is licensed under a Creative Commons Attribution-NonCommercial-No Derivative Works 4.0 License.$uhttps://creativecommons.org/licenses/by-nc-nd/4.0/legalcode  
+	Box for Insert last is checked.  
+	Click Add Field.  
 	Click Close.
 8. To save records back to OCLC, switch to the OCLC Connexion Batch Editor window. Click Save Records. If any errors occur while saving, find the OCLC number in the error message and write it down to fix later.
 9. "Records have been saved." Click OK.
@@ -90,9 +90,9 @@ Outputs:
 2. Click on first folder icon, change file type to .mrk, and select the file you just saved (setname_OCLC_edited.mrk). Click Open.
 3. Click on second folder icon (with green arrow), select save location, name the file, and click Save.
 4. Click Next.
-5. Add the following fields, clicking Add Field after each one. Subfield box is always blank.
-    Field: 001
-    Field: 024
+5. Add the following fields, clicking Add Field after each one. Subfield box is always blank.  
+    Field: 001  
+    Field: 024  
     Field: 856$u
 6. Normalize field data box is unchecked.
 7. Click Export.
@@ -107,13 +107,13 @@ Outputs:
 16. Select Delimited and click Next.
 17. Change delimiter to Semicolon and click Finish.
 18. Delete column with Proquest URLs (column H).
-19. Add the following column headings:
-	Col. H: 001 Check
-	Col. I: 024 Check
+19. Add the following column headings:  
+	Col. H: 001 Check  
+	Col. I: 024 Check  
 	Col. J: 856 Check
-20. Add the following formulas and fill down in each column:
-	Cell H2: =EXACT(A2,E2)
-	Cell I2: =EXACT(C2,F2)
+20. Add the following formulas and fill down in each column:  
+	Cell H2: =EXACT(A2,E2)  
+	Cell I2: =EXACT(C2,F2)  
 	Cell J2: =EXACT(D2,G2)
 21. All cells in columns H, I, and J should be TRUE. If not, figure out why and, if necessary, open OCLC Connexion and correct the record in the local save file.
 
