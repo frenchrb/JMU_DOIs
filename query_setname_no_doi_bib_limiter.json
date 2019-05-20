@@ -1,0 +1,56 @@
+{
+  "queries": [
+    {
+      "target":{
+        "record":{
+          "type":"bib"
+        },
+        "id":81
+      },
+      "expr":{
+        "op":"greater_than_or_equal",
+        "operands":[
+          "bxxxxxxx",
+          ""
+        ]
+      }
+    },
+	"and", 
+	{
+      "target": {
+        "record": {
+          "type": "bib"
+        },
+        "field": {
+          "marcTag": "856",
+          "subfields": "u"
+        }
+      },
+      "expr": {
+        "op": "has",
+        "operands": [
+          "commons.lib.jmu.edu/SETNAME",
+          ""
+        ]
+      }
+    },
+    "and",
+    {
+      "target": {
+        "record": {
+          "type": "bib"
+        },
+        "field": {
+          "marcTag": "024"
+        }
+      },
+      "expr": {
+        "op": "all_fields_not_have",
+        "operands": [
+          "|2doi",
+          ""
+        ]
+      }
+    }
+  ]
+}
