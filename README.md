@@ -32,6 +32,9 @@ The app can be run from the command line (```python DOIminterGUI.py```) or the e
 ## Build
 ```pyinstaller DOIminterGUI.py --noconsole -F -n DOIminter```
 
+## Adding DOIs to OCLC and Sierra Records
+After minting DOIs, follow [these procedures](DOI2SierraOCLCsteps.md) to add DOIs (fields 024 and 856) and license information (fields 506 and 540) to OCLC and Sierra records.
+
 ## License
 Apache 2.0. See [LICENSE.txt](LICENSE.txt) for more information.
 
