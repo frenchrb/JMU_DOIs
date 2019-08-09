@@ -2,7 +2,7 @@
 App to mint DOIs from bepress Digital Commons metadata using DataCite
 
 ## Requirements
-Created and tested with Python 3.5 and Saxon-HE 9.7. Requires lxml, requests, xlrd, xlwt, and xlutils. PyInstaller 3.3.1 used to create executable.
+Created and tested with Python 3.5 and Saxon-HE 9.7. Requires lxml, requests, xlrd, xlwt, and xlutils. PyInstaller 3.3.1 used to create executable. DOI2SierraOCLC.py additionally requires jsonmerge and pymarc.
 
 
 Requires a config file (local_settings.ini) in the same directory. Example of local_settings.ini:

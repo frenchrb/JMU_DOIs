@@ -18,7 +18,7 @@
 
 Required inputs:
 - bepress collection setname
-- bepress spreadsheet containing new DOIs.
+- bepress spreadsheet containing new DOIs
 
 Outputs:
 - brief MARC records containing bib number, DOI fields (024, 856), and license fields (506, 540)
