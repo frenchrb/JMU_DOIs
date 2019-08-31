@@ -50,6 +50,8 @@
     </xsl:function>
     <!-- end functx -->
     
+    <xsl:param name="outputDir"/>
+    
     <xsl:template match="/">
         <xsl:for-each select="table/row">
             <xsl:if test="calc_url!=''">
@@ -66,8 +68,8 @@
                         </xsl:non-matching-substring>
                     </xsl:analyze-string>
                 </xsl:variable>
-            
-                <xsl:result-document method="xml" href="DataCite_metadata_drafts/etd_{$setName}_{$itemID}_draft.xml">
+                
+                <xsl:result-document method="xml" href="{$outputDir}/etd_{$setName}_{$itemID}_draft.xml">
                     <xsl:call-template name="row"/>
                 </xsl:result-document>
             </xsl:if>

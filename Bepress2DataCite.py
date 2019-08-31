@@ -122,18 +122,22 @@ def main(arglist):
     elif not setname == url_setname:
         print('Provided setname does not match setname in bepress spreadsheet')
     else:
+        # Specify output location
+        if production:
+            out_path = Path(os.getcwd()) / 'DataCite_metadata'
+        else:
+            out_path = Path(os.getcwd()) / 'DataCite_metadata_drafts'
+        # print(out_path)
+        # print(out_path.absolute().as_uri())
+        
         # Transform bepress XML to DataCite XML
-        # Output location and filenames are specified in XSLT
         print('Transforming bepress XML to DataCite XML...')
         subprocess.call(['java', '-jar', config['Saxon']['saxon_path']+'saxon9he.jar', '-s:'+str(temp_file),
-                         '-xsl:'+str(xsl_coll_transform)])
+                         '-xsl:'+str(xsl_coll_transform), 'outputDir='+str(out_path.absolute().as_uri())])
         print('Transformation complete')
         print()
         
-        if production:
-            out_path = input.parent / 'DataCite_metadata'
-        else:
-            out_path = Path(os.getcwd()) / 'DataCite_metadata_drafts'
+        
         print('Metadata files saved in ' + str(out_path))
     print('------------------------------------------------------------')
     print('------------------------------------------------------------')
